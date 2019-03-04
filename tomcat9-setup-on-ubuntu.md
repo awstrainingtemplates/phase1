@@ -18,6 +18,9 @@ sudo chmod o+x /opt/tomcat/latest/bin/
 
 sudo vi /etc/systemd/system/tomcat.service
 
+on RHEL - /usr/lib/systemd/system/tomcat.service
+
+
     [Unit]
     Description=Tomcat 9 servlet container
     After=network.target
