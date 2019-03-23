@@ -37,19 +37,21 @@ echo Java Home path: $JAVA_HOME
 
 #Maven Setup:
 echo Maven Setup:
+
+export MAVEN_VERSION=3.6.0
 #Download maven:
 echo Download maven:
- wget http://mirror.cogentco.com/pub/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+ wget http://mirror.cogentco.com/pub/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
 #Unzip tar file
 echo Unzip tar file
- tar zxpvf apache-maven-3.5.4-bin.tar.gz
+ tar zxpvf apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
-#maven home path depedns on the user: here we are running from root user. /home/ec2-user/apache-maven-3.5.4
-echo maven home: /root/apache-maven-3.5.4
+#maven home path depedns on the user: here we are running from root user. /home/ec2-user/apache-maven-${MAVEN_VERSION}
+echo maven home: /root/apache-maven-${MAVEN_VERSION}
 
 #Setup Maven
-export MAVEN_HOME=/root/apache-maven-3.5.4
+export MAVEN_HOME=/root/apache-maven-${MAVEN_VERSION}
 
 export M3=$MAVEN_HOME/bin
 
@@ -74,17 +76,18 @@ echo'
 
 #Tomcat Setup:
 echo Tomcat Setup:
+export TOMCAT_VERSION=7.0.93
 #Download Tomcat
 echo Download Tomcat
-wget http://ftp.cixug.es/apache/tomcat/tomcat-7/v7.0.92/bin/apache-tomcat-7.0.92.tar.gz
+wget http://ftp.cixug.es/apache/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 
 #Unzip tar file
 echo Unzip tar file
-tar zxpvf apache-tomcat-7.0.92.tar.gz
+tar zxpvf apache-tomcat-${TOMCAT_VERSION}.tar.gz
 
 #Move to folder
 echo Move to folder
-mv apache-tomcat-7.0.92 tomcat7
+mv apache-tomcat-${TOMCAT_VERSION} tomcat7
 
 #Update tomcat-users.xml file: vi tomcat7/conf/tomcat-users.xml
 echo'
@@ -109,7 +112,7 @@ echo Jenkins Setup:
 
 #Download Jenkins
 echo Download Jenkins
-wget http://updates.jenkins-ci.org/download/war/2.164/jenkins.war
+wget http://updates.jenkins-ci.org/download/war/2.168/jenkins.war
 
 #Deploy war to tomcat
 echo Deploy war to tomcat
