@@ -19,18 +19,18 @@ wget http://www.sonatype.org/downloads/nexus-latest-bundle.tar.gz
 tar -xzvf nexus-latest-bundle.tar.gz
 
 #Copy Init Script: Crosscheck the below source path before you run thios command
-cp /opt/nexus/nexus-2.14.11-01/bin/nexus /etc/init.d/
+cp /opt/nexus/nexus-2.14.12-02/bin/nexus /etc/init.d/
 
 #Change the Init Script with NEXUS_HOME path : Manual update
 #vi /etc/init.d/nexus
-#NEXUS_HOME="/opt/nexus/nexus-2.14.11-01"
+#NEXUS_HOME="/opt/nexus/nexus-2.14.12-02"
 
 #Add the Nexus User & set direcxtory permissions.
 useradd nexus
 chown -R nexus:nexus /opt/nexus/
 chown nexus:nexus /etc/init.d/nexus
 
-#cat /opt/nexus/nexus-2.14.9-01/conf/nexus.properties : Crosscheck this path & nexus.properties content.
+#cat /opt/nexus/nexus-2.14.12-02/conf/nexus.properties : Crosscheck this path & nexus.properties content.
 #nexus-webapp-context-path=/nexus
 
 #Login to nexus user & start nexus
