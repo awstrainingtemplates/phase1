@@ -8,7 +8,7 @@ pipeline {
         }
     }
 }
-======================
+// ======================
 pipeline {
     agent any
     stages {
@@ -24,7 +24,7 @@ pipeline {
         }
     }
 }
-=============
+// =============
 pipeline {
     agent any
 	parameters {
@@ -56,7 +56,7 @@ pipeline {
         }
     }
 }
-============
+// ============
 pipeline {
     agent any
     stages {
@@ -76,4 +76,58 @@ pipeline {
             echo 'I will always say Hello again!'
         }
     }
+}
+//==============
+pipeline {
+    agent {
+        label 'linux'
+    }
+	stages {
+        stage('Stage-1') {
+            steps {
+                echo 'Executing from Linux'
+            }
+        }
+    }
+}
+//==============
+pipeline {
+    agent {
+        label 'windows'
+    }
+	stages {
+        stage('Stage-1') {
+            steps {
+                echo 'Executing from windows'
+            }
+        }
+    }
+}
+//===============
+pipeline {
+    agent {
+        label "${params.BUILD_EXECUTOR}"
+    }
+	parameters {
+    
+        choice(name: 'BUILD_EXECUTOR', choices: 'linux\nwindows\n', description: 'Specify a Jenkins slave to execute the builds on.')
+    }
+	stages{
+		stage("Stage-Linux"){
+			when { expression { params.BUILD_EXECUTOR == 'linux' } }
+			
+			steps {
+                echo 'Executing from linux'
+				sh 'mkdir Linux-Dir-${BUILD_NUMBER}'
+            }
+		}
+		stage("Stage-windows"){
+			when { expression { params.BUILD_EXECUTOR == 'windows' } }
+			
+			steps {
+                echo 'Executing from windows'
+				bat 'mkdir Windows-Dir-%BUILD_NUMBER%'
+            }
+		}
+	}
 }
