@@ -1,7 +1,7 @@
 pipeline {
     agent any
 	tools {
-        maven 'maven-3.5.4' 
+        maven 'maven-3.5.4' // make sure it is aloready configured under Manage Jenkins --> Global tool Configuration
     }
 	parameters {
         string(name: 'releaseVersion', defaultValue: "1.0", description: 'Specify the version.')
