@@ -155,6 +155,41 @@ pipeline {
 		}
 	}
 }
+// ============ Example-2 for when
+pipeline {
+    agent any
+    parameters{
+        choice(name: 'BUILD', choices: ['SNAPSHOT', 'RELEASE'], description: 'Specify whether it is release or snapshot build.')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Code checkout from Git'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Build using maven'
+            }
+        }
+        stage('DEV Deploy') {
+            when {
+                environment name: 'BUILD', value: 'SNAPSHOT'
+            }
+            steps {
+                echo 'Deploying to DEV env'
+            }
+        }
+        stage('QA Deploy') {
+            when {
+                environment name: 'BUILD', value: 'RELEASE'
+            }
+            steps {
+                echo 'Deploying to QA'
+            }
+        }
+    }
+}
 // ============ Environment variables
 pipeline {
     agent any
@@ -184,4 +219,29 @@ pipeline {
             }
         }
     }
+}
+// =========== Parallel stages
+pipeline{
+	agent any
+	stages {
+        stage('Stage-1') {
+            steps {
+                echo "From Stage-1"
+            }
+        }
+        stage("Parallel Stages"){
+    		parallel {
+    			stage('Stage-2') {
+    				steps {
+    					echo "From Stage-2"
+    				}
+    			}
+    			stage('Stage-3') {
+    				steps {
+    					echo "From Stage-3"
+    				}
+    			}
+    		}
+        }
+	}
 }
