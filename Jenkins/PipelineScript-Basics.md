@@ -79,4 +79,3 @@
     
   ![image](https://user-images.githubusercontent.com/24622526/55305402-e31ce180-546d-11e9-9c42-993b7ebb9355.png)
   
-  #### Example-7: 
