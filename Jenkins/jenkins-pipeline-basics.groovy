@@ -250,7 +250,34 @@ pipeline{
         }
 	}
 }
-// ===========
+// =========== trigger when condition example-1
+pipeline{
+
+	agent any
+
+	triggers {
+	    pollSCM('*/1 * * * *')
+	}
+
+	stages {
+        stage('checkout') {
+            steps {
+                git branch: 'web', credentialsId: 'jengit', url: 'https://github.com/venkatasykam/DevOpsWebApp.git'
+            }
+        }
+        stage('deploy') {
+            when { 
+                    not{
+                        triggeredBy 'SCMTrigger'
+                    }
+                }
+            steps {
+                echo "Deploy if it not SCMTrigger"
+            }
+        }
+	}
+}
+// =========== trigger when condition example-2
 pipeline{
 
 	agent any
