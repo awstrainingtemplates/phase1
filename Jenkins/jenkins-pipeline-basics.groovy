@@ -156,3 +156,20 @@ pipeline {
 		}
 	}
 }
+// ============ Environment variables
+pipeline {
+    agent any
+    environment { 
+        MyEnvVar = 'clang'
+    }
+    stages {
+        stage('Example') {
+            environment { 
+                AN_ACCESS_KEY = credentials('jengit') 
+            }
+            steps {
+                sh 'printenv'
+            }
+        }
+    }
+}
