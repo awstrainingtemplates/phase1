@@ -1,25 +1,25 @@
 pipeline {
     agent any
     stages {
-        stage('Example') {
+        stage('Stage') {
             steps {
-                echo 'Hello World'
+                echo 'From Stage'
             }
         }
     }
 }
-// ======================
+// ===============
 pipeline {
     agent any
     stages {
-        stage('Example-1') {
+        stage('Stage-1') {
             steps {
-                echo 'Hello World-1'
+                echo 'From Stage-1'
             }
         }
-		stage('Example-2') {
+	stage('Stage-2') {
             steps {
-                echo 'Hello World-2'
+                echo 'From Stage-2'
             }
         }
     }
