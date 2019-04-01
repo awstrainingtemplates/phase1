@@ -29,12 +29,12 @@ pipeline {
     agent any
 	parameters {
 		choice(name: 'BUILD', choices: 'release\nsnapshot\n', description: 'Specify whether it is release or snapshot build.')
-        string(name: 'UserName', defaultValue: 'venkat', description: 'Specify the git username.')
-        string(name: 'Version', defaultValue: '1.0.0-SNAPSHOT', description: 'Specify the version.')
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Pasword')
+		choice(name: 'Project', choices: ['Project-1', 'Project-2'], description: 'Select the Project')
+		string(name: 'UserName', defaultValue: 'venkat', description: 'Specify the git username.')
+		string(name: 'Version', defaultValue: '1.0.0-SNAPSHOT', description: 'Specify the version.')
+		password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Pasword')
 		booleanParam(name: 'Deploy', defaultValue: false, description: 'Deploy or not')
 		text(name: 'DEPLOY_Servers', defaultValue: 'One\nTwo\nThree\n', description: '')
-		file(name: 'FILE', description: 'Some file to upload')
 	}
     stages {
         stage('Example-1') {
@@ -51,7 +51,6 @@ pipeline {
 		println "Version: ${params.Version}"
 		println "Deploy: ${params.Deploy}"
 		println "DEPLOY_Servers: ${params.DEPLOY_Servers}"
-		println "FILE: ${params.FILE}"
             }
         }
     }
