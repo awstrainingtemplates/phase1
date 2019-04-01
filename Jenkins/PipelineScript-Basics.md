@@ -30,7 +30,6 @@
     node{
         git branch: 'web', credentialsId: 'jengit', url: 'https://github.com/venkatasykam/DevOpsWebApp.git'
 
-        tool name: 'maven-3.5.4', type: 'maven'
         withEnv(["PATH+MAVEN=${tool 'maven-3.5.4'}/bin"]) {
             sh "mvn clean package"
         }
