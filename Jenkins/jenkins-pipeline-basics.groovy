@@ -40,18 +40,18 @@ pipeline {
         stage('Example-1') {
             steps {
                 echo 'Hello World-1'
-				println "BUILD: ${params.BUILD}"
-				println "UserName: ${params.UserName}"
-				println "PASSWORD: ${params.PASSWORD}"
+		println "BUILD: ${params.BUILD}"
+		println "UserName: ${params.UserName}"
+		println "PASSWORD: ${params.PASSWORD}"
             }
         }
-		stage('Example-2') {
+	stage('Example-2') {
             steps {
                 echo 'Hello World-2'
-				println "Version: ${params.Version}"
-				println "Deploy: ${params.Deploy}"
-				println "DEPLOY_Servers: ${params.DEPLOY_Servers}"
-				println "FILE: ${params.FILE}"
+		println "Version: ${params.Version}"
+		println "Deploy: ${params.Deploy}"
+		println "DEPLOY_Servers: ${params.DEPLOY_Servers}"
+		println "FILE: ${params.FILE}"
             }
         }
     }
@@ -65,7 +65,7 @@ pipeline {
                 echo 'Hello World-1'
             }
         }
-		stage('Example-2') {
+	stage('Example-2') {
             steps {
                 echo 'Hello World-2'
             }
@@ -74,6 +74,31 @@ pipeline {
     post { 
         always { 
             echo 'I will always say Hello again!'
+        }
+    }
+}
+//============== Run the below snippet twise. First time job will success by creating new directory.. second time the job will be failed as the directory already exists.
+pipeline {
+    agent any
+    stages {
+        stage('Example-1') {
+            steps {
+                echo 'Hello World-1'
+            }
+        }
+	stage('Example-2') {
+            steps {
+                echo 'Hello World-2'
+		        sh "mkdir dir1"
+            }
+        }
+    }
+    post { 
+        success { 
+            echo 'Run this section when all the stages are success'
+        }
+	failure { 
+            echo 'Run this section when any of the stage is failed'
         }
     }
 }
