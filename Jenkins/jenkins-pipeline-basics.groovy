@@ -207,7 +207,7 @@ pipeline {
         }
     }
 }
-// ============ Triggers
+// ============ Triggers - upstream
 pipeline {
     agent any
     triggers { upstream(upstreamProjects: 'Job-1', threshold: hudson.model.Result.SUCCESS) }
@@ -219,6 +219,67 @@ pipeline {
             }
         }
     }
+}
+// ======== Triggers -- cron
+pipeline{
+	agent any
+	triggers {
+		cron('03 13 * * *')
+	}
+	stages {
+        stage('Stage-1') {
+            steps {
+                echo "From Stage-1"
+            }
+        }
+	}
+}
+// ======== Triggers -- pollSCM
+pipeline{
+
+	agent any
+
+	triggers {
+	    pollSCM('*/1 * * * *')
+	}
+	stages {
+        stage('checkout') {
+            steps {
+                git branch: 'web', credentialsId: 'jengit', url: 'https://github.com/venkatasykam/DevOpsWebApp.git'
+            }
+        }
+	}
+}
+// ===========
+pipeline{
+
+	agent any
+	parameters{
+	   choice(name: 'BUILD', choices: ['RELEASE', 'SNAPSHOT'], description: 'Specify whether it is release or snapshot build.')
+	}
+	triggers {
+	    pollSCM('*/1 * * * *')
+	    upstream(upstreamProjects: 'Job-1', threshold: hudson.model.Result.SUCCESS)
+	    cron('29 13 * * *')
+	}
+	stages {
+	    stage('checkout') {
+            steps {
+                git branch: 'web', credentialsId: 'jengit', url: 'https://github.com/venkatasykam/DevOpsWebApp.git'
+            }
+        }
+        stage('deploy'){
+            when { 
+                allOf{
+                    triggeredBy 'TimerTrigger'
+                    environment name: 'BUILD', value: 'RELEASE'
+                }
+            }
+            steps {
+                echo "Deploy only if it TimerTrigger & RELEASE since it is scheduled deployment"
+            }
+        }
+	}
 }
 // =========== Parallel stages
 pipeline{
