@@ -173,3 +173,16 @@ pipeline {
         }
     }
 }
+// ============ Triggers
+pipeline {
+    agent any
+    triggers { upstream(upstreamProjects: 'Job-1', threshold: hudson.model.Result.SUCCESS) }
+    stages {
+        stage('checkout') {
+            steps {
+                cleanWs()
+                git branch: 'web', credentialsId: 'jengit', url: 'https://github.com/venkatasykam/DevOpsWebApp.git'
+            }
+        }
+    }
+}
