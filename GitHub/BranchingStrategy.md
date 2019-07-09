@@ -5,7 +5,7 @@ IRCTC-v0.2 = Defect fix ot bug fix in IRCTC-v0.1 + IRCTC Food + IRTCTC TATKAL + 
 
 IRCTC:
 
-IRCTC-v0.1: 1st release : 21st aug night.
+IRCTC-v0.1: 1st release : 21st aug night
 
 	master 			   - maintain the production code - Alaways locked.
 	AUG-R1-MAJOR-2018  - current dev branch
